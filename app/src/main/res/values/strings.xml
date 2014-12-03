@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">寶貝安全一把罩</string>
+    <string name="title_section1">回到首頁</string>
+    <string name="title_section2">我的孩子護照</string>
+    <string name="title_section3">家長資訊</string>
+    <string name="title_section4">聯繫本中心</string>
+    <string name="title_section5">聯繫警方</string>
+    <string name="title_section6">寶貝安全需知</string>
+    <string name="title_section7">關於本 App</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

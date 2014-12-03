@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">寶貝安全一把罩</string>
+    <string name="orginaztion">失蹤兒童少年資料管理中心</string>
     <string name="title_section1">回到首頁</string>
     <string name="title_section2">我的孩子護照</string>
     <string name="title_section3">家長資訊</string>

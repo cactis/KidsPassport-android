@@ -9,4 +9,5 @@
         <item name="android:background">#db1a1a</item>
     </style>
 
+  <drawable name="navigation_background">#db1a1a</drawable>
 </resources>

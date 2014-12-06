@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="fullname">姓名(請輸入孩子的正式名稱)2</string>
+  <string name="fullname_label">姓名(請輸入孩子的正式名稱)</string>
   <string name="fullname_hint">王小明</string>
-  <string name="gender">性別</string>
+  <string name="birthday_label">生日</string>
+  <string name="birthday_hint">請輸入生日</string>
+  <string name="gender_label">性別</string>
   <string name="gender_hint">請輸入性別</string>
-  <string name="avatar">照片(點擊更新照片)</string>
+  <string name="avatar_label">照片(點擊更新照片)</string>
+  <string name="submit">存檔</string>
 </resources>

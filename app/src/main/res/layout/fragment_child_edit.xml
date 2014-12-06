@@ -3,92 +3,99 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.airfont.kidspassport.ChildEdit"
-             android:padding="10dp">
+  >
 
 
-  <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="center_horizontal|top">
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollView"
+    >
 
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="?android:attr/textAppearanceSmall"
-      android:text="@string/fullname"
-      android:id="@+id/textView2"
-      android:layout_gravity="left|top"/>
-
-    <EditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:inputType="textPersonName"
-      android:ems="10"
-      android:id="@+id/editText"
-      android:hint="@string/fullname_hint"/>
-
-    <Space
-      android:layout_width="20px"
-      android:layout_height="20px"
-      />
-
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="?android:attr/textAppearanceSmall"
-      android:text="@string/birthday"
-      android:id="@+id/textView3"/>
-
-    <EditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:inputType="date"
-      android:ems="10"
-      android:id="@+id/editText2"
-      android:hint="@string/birthday_hint"/>
-
-    <Space
-      android:layout_width="20px"
-      android:layout_height="20px"
-      />
-
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="?android:attr/textAppearanceSmall"
-      android:text="@string/gender"
-      android:id="@+id/textView4"/>
-
-    <EditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/editText3"
-      android:hint="@string/gender_hint"/>
-
-    <Space
-      android:layout_width="20px"
-      android:layout_height="20px"
-      />
-
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="?android:attr/textAppearanceSmall"
-      android:text="@string/avatar"
-      android:id="@+id/textView5"
-      android:paddingBottom="5dp"/>
-
-    <ImageView
+    <LinearLayout
+      android:orientation="vertical"
       android:layout_width="fill_parent"
-      android:layout_height="300dp"
-      android:id="@+id/avatarView"
-      android:cropToPadding="false"
-      android:scaleType="centerCrop"
-      android:adjustViewBounds="true"
-      android:nestedScrollingEnabled="false"
-      android:src="@drawable/avatar"
-      />
+      android:layout_height="fill_parent"
+      android:layout_gravity="center_horizontal|top"
+      android:padding="10dp">
 
-  </LinearLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/fullname_label"
+        android:id="@+id/fullnameLabel"
+        android:layout_gravity="left|top"/>
+
+      <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/fullname"
+        android:hint="@string/fullname_hint"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/birthday_label"
+        android:id="@+id/birthday_label"
+        android:layout_marginTop="10dp"/>
+
+      <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/birthday"
+        android:hint="@string/birthday_hint"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/gender_label"
+        android:id="@+id/gender_label"
+        android:layout_marginTop="10dp"/>
+
+      <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gender"
+        android:hint="@string/gender_hint"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/avatar_label"
+        android:id="@+id/avatar_label"
+        android:paddingBottom="2dp"
+        android:layout_marginTop="10dp"/>
+
+      <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:id="@+id/avatarView"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:nestedScrollingEnabled="false"
+        android:src="@drawable/avatar"
+        />
+
+      <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/submit"
+        android:id="@+id/child_edit_submit"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/navigation_background"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="100dp"
+        android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+  </ScrollView>
 </FrameLayout>

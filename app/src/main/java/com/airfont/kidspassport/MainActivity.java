@@ -64,10 +64,10 @@ public class MainActivity extends Activity
       R.id.navigation_drawer,
       (DrawerLayout) findViewById(R.id.drawer_layout));
 
-    //onNavigationDrawerItemSelected(1);
-    Fragment fragment = ChildEditFragment.newInstance("", "");
-    FragmentManager fragmentManager = getFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+    onNavigationDrawerItemSelected(1);
+    //Fragment fragment = ChildEditFragment.newInstance("", "");
+    //FragmentManager fragmentManager = getFragmentManager();
+    //fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
   }
 
   @Override
@@ -82,7 +82,7 @@ public class MainActivity extends Activity
         break;
       case 1:
         mTitle = getString(R.string.title_section1);
-        fragment = ChildFragment.newInstance("", "");
+        fragment = ChildListFragment.newInstance("", "");
         break;
       case 2:
         mTitle = getString(R.string.title_section2);

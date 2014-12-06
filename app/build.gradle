@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.airfont.kidspassport"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -28,6 +28,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:21.+'
     compile 'com.noveogroup.android:android-logger:1.3.4'
+    compile 'com.joanzapata.android:android-iconify:1.0.8'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 
 }

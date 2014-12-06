@@ -1,0 +1,94 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.airfont.kidspassport.ChildEdit"
+             android:padding="10dp">
+
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal|top">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:text="@string/fullname"
+      android:id="@+id/textView2"
+      android:layout_gravity="left|top"/>
+
+    <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="textPersonName"
+      android:ems="10"
+      android:id="@+id/editText"
+      android:hint="@string/fullname_hint"/>
+
+    <Space
+      android:layout_width="20px"
+      android:layout_height="20px"
+      />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:text="@string/birthday"
+      android:id="@+id/textView3"/>
+
+    <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="date"
+      android:ems="10"
+      android:id="@+id/editText2"
+      android:hint="@string/birthday_hint"/>
+
+    <Space
+      android:layout_width="20px"
+      android:layout_height="20px"
+      />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:text="@string/gender"
+      android:id="@+id/textView4"/>
+
+    <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/editText3"
+      android:hint="@string/gender_hint"/>
+
+    <Space
+      android:layout_width="20px"
+      android:layout_height="20px"
+      />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:text="@string/avatar"
+      android:id="@+id/textView5"
+      android:paddingBottom="5dp"/>
+
+    <ImageView
+      android:layout_width="fill_parent"
+      android:layout_height="300dp"
+      android:id="@+id/avatarView"
+      android:cropToPadding="false"
+      android:scaleType="centerCrop"
+      android:adjustViewBounds="true"
+      android:nestedScrollingEnabled="false"
+      android:src="@drawable/avatar"
+      />
+
+  </LinearLayout>
+</FrameLayout>

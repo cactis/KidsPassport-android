@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">寶貝安全一把罩</string>
-    <string name="orginaztion">失蹤兒童少年資料管理中心</string>
-    <string name="title_section0">回到首頁</string>
-    <string name="title_section1">我的孩子護照</string>
-    <string name="title_section2">家長資訊</string>
-    <string name="title_section3">聯繫本中心</string>
-    <string name="title_section4">聯繫警方</string>
-    <string name="title_section5">寶貝安全需知</string>
-    <string name="title_section6">關於本 App</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="app_name">寶貝安全一把罩</string>
+  <string name="orginaztion">失蹤兒童少年資料管理中心</string>
+  <string name="title_section0">回到首頁</string>
+  <string name="title_section1">我的孩子護照</string>
+  <string name="title_section2">家長資訊</string>
+  <string name="title_section3">聯繫本中心</string>
+  <string name="title_section4">聯繫警方</string>
+  <string name="title_section5">寶貝安全需知</string>
+  <string name="title_section6">關於本 App</string>
+  <string name="navigation_drawer_open">Open navigation drawer</string>
+  <string name="navigation_drawer_close">Close navigation drawer</string>
+  <!--<string name="action_example">Example action</string>-->
+  <!--<string name="action_settings">Settings</string>-->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="birthday">生日</string>
+  <string name="birthday_hint">請輸入生日</string>
 
 </resources>

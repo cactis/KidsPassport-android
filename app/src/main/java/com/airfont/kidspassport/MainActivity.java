@@ -23,6 +23,9 @@ import android.content.Intent;
 
 import android.net.Uri;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Select;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +47,7 @@ public class MainActivity extends Activity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.activity_main);
 
     ActionBar bar = getActionBar();
@@ -59,6 +63,11 @@ public class MainActivity extends Activity
     mNavigationDrawerFragment.setUp(
       R.id.navigation_drawer,
       (DrawerLayout) findViewById(R.id.drawer_layout));
+
+    //onNavigationDrawerItemSelected(1);
+    Fragment fragment = ChildEditFragment.newInstance("", "");
+    FragmentManager fragmentManager = getFragmentManager();
+    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
   }
 
   @Override
@@ -66,7 +75,7 @@ public class MainActivity extends Activity
     // update the main content by replacing fragments
     logger.info("onNavigationDrawerItemSelected");
     Fragment fragment = new Fragment();
-//    Fragment fragment = PlaceholderFragment.newInstance(position + 1);
+    //Fragment fragment = PlaceholderFragment.newInstance(position + 1);
     switch (position) {
       case 0:
         fragment = PlaceholderFragment.newInstance(position + 1);
@@ -80,13 +89,13 @@ public class MainActivity extends Activity
         fragment = ParentFragment.newInstance("", "");
         break;
       case 3:
-//        mTitle = getString(R.string.title_section3);
+        //        mTitle = getString(R.string.title_section3);
         Uri center_call = Uri.parse("tel:0800049880");
         Intent center_call_intent = new Intent(Intent.ACTION_DIAL, center_call);
         startActivity(center_call_intent);
         return;
       case 4:
-//        mTitle = getString(R.string.title_section4);
+        //        mTitle = getString(R.string.title_section4);
         Uri police_call = Uri.parse("tel:119");
         Intent poclic_call_intent = new Intent(Intent.ACTION_DIAL, police_call);
         startActivity(poclic_call_intent);
@@ -138,9 +147,9 @@ public class MainActivity extends Activity
     int id = item.getItemId();
 
     //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
-    }
+    //    if (id == R.id.action_settings) {
+    //      return true;
+    //    }
 
     return super.onOptionsItemSelected(item);
   }

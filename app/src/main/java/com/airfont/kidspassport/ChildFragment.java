@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -17,8 +20,14 @@ import android.widget.ImageView;
 
 import com.airfont.kidspassport.dummy.DummyContent;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -72,36 +81,60 @@ public class ChildFragment extends Fragment implements AbsListView.OnItemClickLi
   }
 
   @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.childs_list, menu);
+    menu.findItem(R.id.add_child).setIcon(
+      new IconDrawable(getActivity().getBaseContext(), Iconify.IconValue.fa_plus)
+        .colorRes(android.R.color.white)
+        .actionBarSize());
+    super.onCreateOptionsMenu(menu, inflater);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item){
+    int id = item.getItemId();
+    if (id == R.id.add_child){
+      logger.info("new a child passpord");
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
 
     if (getArguments() != null) {
       mParam1 = getArguments().getString(ARG_PARAM1);
       mParam2 = getArguments().getString(ARG_PARAM2);
     }
 
-    // TODO: Change Adapter to display your content
-    mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-      android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+    //TODO: Change Adapter to display your content
+    //mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+    //android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+    List childs = Child.getAll();
+    mAdapter = new ArrayAdapter<Child>(getActivity(),
+      android.R.layout.simple_list_item_1, android.R.id.text1, childs);
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_child, container, false);
+    View view = inflater.inflate(R.layout.fragment_child_list, container, false);
 
     // Set the adapter
     mListView = (AbsListView) view.findViewById(android.R.id.list);
     ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
-    // Set OnItemClickListener so we can be notified on item clicks
+    //Set OnItemClickListener so we can be notified on item clicks
     mListView.setOnItemClickListener(this);
 
 
     View eventView = view.findViewById(R.id.eventView);
-    eventView.setOnClickListener((new View.OnClickListener(){
-      public void onClick(View v){
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://xuelele.com.tw"));
+    eventView.setOnClickListener((new View.OnClickListener() {
+      public void onClick(View v) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.kids.org.tw/"));
         startActivity(browserIntent);
       }
     }));
@@ -112,12 +145,12 @@ public class ChildFragment extends Fragment implements AbsListView.OnItemClickLi
   @Override
   public void onAttach(Activity activity) {
     super.onAttach(activity);
-//    try {
-//      mListener = (OnFragmentInteractionListener) activity;
-//    } catch (ClassCastException e) {
-//      throw new ClassCastException(activity.toString()
-//        + " must implement OnFragmentInteractionListener");
-//    }
+    //    try {
+    //      mListener = (OnFragmentInteractionListener) activity;
+    //    } catch (ClassCastException e) {
+    //      throw new ClassCastException(activity.toString()
+    //                                     + " must implement OnFragmentInteractionListener");
+    //    }
   }
 
   @Override
@@ -135,6 +168,23 @@ public class ChildFragment extends Fragment implements AbsListView.OnItemClickLi
       // fragment is attached to one) that an item has been selected.
       mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
     }
+
+    Child child = new Child();
+    child.fullname = "陳雅婷";
+    child.nickname = "小婷";
+    child.gender = "女";
+    child.save();
+    logger.info(String.valueOf(1111));
+    logger.info(String.valueOf(Child.count()));
+
+    List childs = Child.getAll();
+    logger.info(String.valueOf(childs));
+    logger.info(String.valueOf(childs.size()));
+
+    //    Child achild = Child.getRandom(); //getRandom();
+    //    logger.info(child.fullname);
+    //    Child achild = Child.load(Child.class, 1);
+    //    logger.info(achild.fullname);
   }
 
   /**

@@ -1,27 +1,39 @@
 package com.airfont.kidspassport;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 import com.thedeanda.lorem.Lorem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Hashtable;
 
 
@@ -48,6 +60,11 @@ public class ChildEditFragment extends Fragment {
 
   private OnFragmentInteractionListener mListener;
 
+  private EditText fullname;
+  private EditText gender;
+  private ImageView avatar;
+  private Button submit;
+
   /**
    * Use this factory method to create a new instance of
    * this fragment using the provided parameters.
@@ -73,6 +90,7 @@ public class ChildEditFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
     if (getArguments() != null) {
       mParam1 = getArguments().getString(ARG_PARAM1);
       mParam2 = getArguments().getString(ARG_PARAM2);
@@ -80,41 +98,46 @@ public class ChildEditFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_child_edit, container, false);
-    Button button = (Button)view.findViewById(R.id.child_edit_submit);
-    final EditText fullname = (EditText)view.findViewById(R.id.fullname);
-    final EditText gender = (EditText)view.findViewById(R.id.gender);
 
 
-    gender.setText("女");
+    fullname = (EditText) view.findViewById(R.id.fullname);
+    gender = (EditText) view.findViewById(R.id.gender);
+    avatar = (ImageView) view.findViewById(R.id.avatar);
+    submit = (Button) view.findViewById(R.id.submit);
 
-    button.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        logger.info("submit it!");
-        fullname.setText(Lorem.getNameFemale(), TextView.BufferType.EDITABLE);
+    avatar.setOnClickListener(new ButtonClicked());
+    submit.setOnClickListener(new ButtonClicked());
 
-        Hashtable<String, String> attributes = new Hashtable<String, String>();
-        attributes.put("fullname", fullname.getText().toString());
-        attributes.put("gender", gender.getText().toString());
-        Log.v("gender", gender.getText().toString());
-        //attributes.put("gender", view.findViewById(R.id.gender));
-        logger.info(String.valueOf(attributes));
-
-        Child child = new Child();
-        Child result = child.update_attributes(attributes);
-        logger.info(result.fullname);
-        getFragmentManager().popBackStack();
-      }
-    });
     return view;
   }
 
-  // TODO: Rename method, update argument and hook method into UI event
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.child_edit, menu);
+    menu.findItem(R.id.cancel).setIcon(new IconDrawable(getActivity().getBaseContext(), Iconify.IconValue.fa_close).colorRes(android.R.color.white).actionBarSize());
+    super.onCreateOptionsMenu(menu, inflater);
+  }
 
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    switch (id){
+      case R.id.cancel:
+        getFragmentManager().popBackStack();
+        break;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    logger.info("camera result");
+    Bitmap bt = (Bitmap) data.getExtras().get("data");
+    avatar.setImageBitmap(bt);
+  }
+
+  // TODO: Rename method, update argument and hook method into UI event
   public void onButtonPressed(Uri uri) {
     if (mListener != null) {
       mListener.onFragmentInteraction(uri);
@@ -151,6 +174,42 @@ public class ChildEditFragment extends Fragment {
   public interface OnFragmentInteractionListener {
     // TODO: Update argument type and name
     public void onFragmentInteraction(Uri uri);
+  }
+
+  private class ButtonClicked implements View.OnClickListener {
+    public void onClick(View v) {
+      switch (v.getId()) {
+        case R.id.avatar:
+          logger.info("image clicked");
+          Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+          startActivityForResult(intent, 0);
+          break;
+        case R.id.submit:
+          logger.info("submit it!");
+          fullname.setText(Lorem.getNameFemale(), TextView.BufferType.EDITABLE);
+          gender.setText("女");
+
+          //Hashtable<String, String> attributes = new Hashtable<String, String>();
+          //attributes.put("fullname", fullname.getText().toString());
+          //attributes.put("gender", gender.getText().toString());
+          //attributes.put("avatar", ((BitmapDrawable)avatar.getDrawable()).getBitmap();
+          //Log.v("gender", gender.getText().toString());
+          //logger.info(String.valueOf(attributes));
+          Child child = new Child();
+          //Child result = child.create(attributes);
+          child.fullname = fullname.getText().toString();
+          child.gender = gender.getText().toString();
+          Bitmap bmp = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
+          ByteArrayOutputStream stream = new ByteArrayOutputStream();
+          bmp.compress(Bitmap.CompressFormat.JPEG, 75, stream);
+          byte[] byteArray = stream.toByteArray();
+          child.avatar = byteArray;
+          child.save();
+          logger.info(child.fullname);
+          getFragmentManager().popBackStack();
+          break;
+      }
+    }
   }
 
 }

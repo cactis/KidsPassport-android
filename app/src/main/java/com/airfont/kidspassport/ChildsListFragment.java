@@ -30,6 +30,7 @@ import com.joanzapata.android.iconify.Iconify;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ChildListFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class ChildsListFragment extends Fragment implements AbsListView.OnItemClickListener {
 
   private static final Logger logger = LoggerFactory.getLogger(MainActivity.class);
   // TODO: Rename parameter arguments, choose names that match
@@ -67,8 +68,8 @@ public class ChildListFragment extends Fragment implements AbsListView.OnItemCli
   private ListAdapter mAdapter;
 
   // TODO: Rename and change types of parameters
-  public static ChildListFragment newInstance(String param1, String param2) {
-    ChildListFragment fragment = new ChildListFragment();
+  public static ChildsListFragment newInstance(String param1, String param2) {
+    ChildsListFragment fragment = new ChildsListFragment();
     Bundle args = new Bundle();
     args.putString(ARG_PARAM1, param1);
     args.putString(ARG_PARAM2, param2);
@@ -80,31 +81,7 @@ public class ChildListFragment extends Fragment implements AbsListView.OnItemCli
    * Mandatory empty constructor for the fragment manager to instantiate the
    * fragment (e.g. upon screen orientation changes).
    */
-  public ChildListFragment() {
-  }
-
-  @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    inflater.inflate(R.menu.childs_list, menu);
-    menu.findItem(R.id.add_child).setIcon(
-      new IconDrawable(getActivity().getBaseContext(), Iconify.IconValue.fa_plus)
-        .colorRes(android.R.color.white)
-        .actionBarSize());
-    super.onCreateOptionsMenu(menu, inflater);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item){
-    int id = item.getItemId();
-    if (id == R.id.add_child){
-      Fragment fragment = ChildEditFragment.newInstance("", "");
-      getFragmentManager().beginTransaction()
-        .addToBackStack(null)
-        .replace(R.id.container, fragment)
-        .commit();
-      return true;
-    }
-    return super.onOptionsItemSelected(item);
+  public ChildsListFragment() {
   }
 
   @Override
@@ -121,14 +98,14 @@ public class ChildListFragment extends Fragment implements AbsListView.OnItemCli
     //mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
     //android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
     List childs = Child.all();
-    mAdapter = new ArrayAdapter<Child>(getActivity(),
-      android.R.layout.simple_list_item_1, android.R.id.text1, childs);
+    //mAdapter = new ArrayAdapter<Child>(getActivity(),android.R.layout.simple_list_item_1, android.R.id.text1, childs);
+    mAdapter = new ChildAdapter(getActivity(), childs);
+
+    //mAdapter = new ChildAdapter(getActivity(), childCursor);
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
-    logger.info("----------------------------");
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_child_list, container, false);
 
     // Set the adapter
@@ -149,13 +126,36 @@ public class ChildListFragment extends Fragment implements AbsListView.OnItemCli
   }
 
   @Override
-  public void onResume(){
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.childs_list, menu);
+    menu.findItem(R.id.add_child).setIcon(
+      new IconDrawable(getActivity().getBaseContext(), Iconify.IconValue.fa_plus).colorRes(android.R.color.white).actionBarSize());
+    super.onCreateOptionsMenu(menu, inflater);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    switch (id) {
+      case R.id.add_child:
+        Fragment fragment = ChildEditFragment.newInstance("", "");
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
+        ft.replace(R.id.container, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onResume() {
     logger.info(String.valueOf("onResume: " + Child.count()));
-    ((BaseAdapter)mListView.getAdapter()).notifyDataSetChanged();
+    ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
     List childs = Child.all();
-    logger.info(String.valueOf(Child.all()));
-    mAdapter = new ArrayAdapter<Child>(getActivity(),
-      android.R.layout.simple_list_item_1, android.R.id.text1, childs);
+    //mAdapter = new ArrayAdapter<Child>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, childs);
+    mAdapter = new ChildAdapter(getActivity(), childs);
     ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
     super.onResume();
   }
@@ -179,9 +179,10 @@ public class ChildListFragment extends Fragment implements AbsListView.OnItemCli
 
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    logger.info("position", position);
+    logger.info(String.format("position: %s", position));
+    logger.info(String.format("id: %s", id));
     if (null != mListener) {
-      logger.info("position", position);
+      logger.info("here!");
       // Notify the active callbacks interface (the activity, if the
       // fragment is attached to one) that an item has been selected.
       mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);

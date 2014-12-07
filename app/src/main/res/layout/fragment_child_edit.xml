@@ -77,7 +77,7 @@
       <ImageView
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:id="@+id/avatarView"
+        android:id="@+id/avatar"
         android:cropToPadding="false"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
@@ -89,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/submit"
-        android:id="@+id/child_edit_submit"
+        android:id="@+id/submit"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/navigation_background"
         android:layout_marginTop="10dp"

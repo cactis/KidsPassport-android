@@ -55,64 +55,62 @@ public class MainActivity extends Activity
     bar.setDisplayShowTitleEnabled(false);
     bar.setDisplayShowTitleEnabled(true);
 
-    mNavigationDrawerFragment = (NavigationDrawerFragment)
-      getFragmentManager().findFragmentById(R.id.navigation_drawer);
+    mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
     mTitle = getTitle();
+    mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
-    // Set up the drawer.
-    mNavigationDrawerFragment.setUp(
-      R.id.navigation_drawer,
-      (DrawerLayout) findViewById(R.id.drawer_layout));
-
-    onNavigationDrawerItemSelected(1);
-    //Fragment fragment = ChildEditFragment.newInstance("", "");
-    //FragmentManager fragmentManager = getFragmentManager();
-    //fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+    if (isDevelopment()) {
+      if (true) {
+        onNavigationDrawerItemSelected(1);
+      } else {
+        Fragment fragment = ChildEditFragment.newInstance("", "");
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+      }
+    }
   }
 
   @Override
-  public void onNavigationDrawerItemSelected(int position) {
-    // update the main content by replacing fragments
-    logger.info("onNavigationDrawerItemSelected");
-    Fragment fragment = new Fragment();
-    //Fragment fragment = PlaceholderFragment.newInstance(position + 1);
-    switch (position) {
-      case 0:
-        fragment = PlaceholderFragment.newInstance(position + 1);
-        break;
-      case 1:
-        mTitle = getString(R.string.title_section1);
-        fragment = ChildListFragment.newInstance("", "");
-        break;
-      case 2:
-        mTitle = getString(R.string.title_section2);
-        fragment = ParentFragment.newInstance("", "");
-        break;
-      case 3:
-        //        mTitle = getString(R.string.title_section3);
-        Uri center_call = Uri.parse("tel:0800049880");
-        Intent center_call_intent = new Intent(Intent.ACTION_DIAL, center_call);
-        startActivity(center_call_intent);
-        return;
-      case 4:
-        //        mTitle = getString(R.string.title_section4);
-        Uri police_call = Uri.parse("tel:119");
-        Intent poclic_call_intent = new Intent(Intent.ACTION_DIAL, police_call);
-        startActivity(poclic_call_intent);
-        return;
-      case 5:
-        mTitle = getString(R.string.title_section5);
-        fragment = InfoFragment.newInstance("", "");
-        break;
-      case 6:
-        mTitle = getString(R.string.title_section6);
-        fragment = AboutFragment.newInstance("", "");
-    }
-    FragmentManager fragmentManager = getFragmentManager();
-    fragmentManager.beginTransaction()
-      .replace(R.id.container, fragment)
-      .commit();
-  }
+     public void onNavigationDrawerItemSelected(int position) {
+       // update the main content by replacing fragments
+       logger.info("onNavigationDrawerItemSelected");
+       Fragment fragment = new Fragment();
+       //Fragment fragment = PlaceholderFragment.newInstance(position + 1);
+       switch (position) {
+         case 0:
+           fragment = PlaceholderFragment.newInstance(position + 1);
+           break;
+         case 1:
+           mTitle = getString(R.string.title_section1);
+           fragment = ChildsListFragment.newInstance("", "");
+           break;
+         case 2:
+           mTitle = getString(R.string.title_section2);
+           fragment = ParentFragment.newInstance("", "");
+           break;
+         case 3:
+           Uri center_call = Uri.parse("tel:0800049880");
+           Intent center_call_intent = new Intent(Intent.ACTION_DIAL, center_call);
+           startActivity(center_call_intent);
+           return;
+         case 4:
+           Uri police_call = Uri.parse("tel:119");
+           Intent poclic_call_intent = new Intent(Intent.ACTION_DIAL, police_call);
+           startActivity(poclic_call_intent);
+           return;
+         case 5:
+           mTitle = getString(R.string.title_section5);
+           fragment = InfoFragment.newInstance("", "");
+           break;
+         case 6:
+           mTitle = getString(R.string.title_section6);
+           fragment = AboutFragment.newInstance("", "");
+       }
+       FragmentManager fragmentManager = getFragmentManager();
+       fragmentManager.beginTransaction()
+         .replace(R.id.container, fragment)
+         .commit();
+     }
 
   public void onSectionAttached(int number) {
     logger.info("number", number);
@@ -192,6 +190,23 @@ public class MainActivity extends Activity
       ((MainActivity) activity).onSectionAttached(
         getArguments().getInt(ARG_SECTION_NUMBER));
     }
+  }
+
+  public static boolean isDevelopment() {
+    boolean result =//
+      Build.FINGERPRINT.startsWith("generic")//
+        || Build.FINGERPRINT.startsWith("unknown")//
+        || Build.MODEL.contains("google_sdk")//
+        || Build.MODEL.contains("Emulator")//
+        || Build.MODEL.contains("Android SDK built for x86")
+        || Build.MANUFACTURER.contains("Genymotion");
+    if (result)
+      return true;
+    result |= Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic");
+    if (result)
+      return true;
+    result |= "google_sdk".equals(Build.PRODUCT);
+    return result;
   }
 
 }

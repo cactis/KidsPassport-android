@@ -8,6 +8,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -24,26 +25,36 @@ public class Child extends Model {
 
   @Column(name = "Fullname")
   public String fullname;
+  @Column(name = "Birthday")
+  public String birthday;
   @Column(name = "Nickname")
   public String nickname;
   @Column(name = "Gender")
   public String gender;
+  @Column(name = "Avatar")
+  public byte[] avatar;
 
-  public static Child getRandom() {
-    return new Select().from(Child.class).orderBy("RANDOM()").executeSingle();
+  public Child(){
+    super();
   }
 
-  public Child update_attributes(Hashtable<String, String> attrs) {
-    this.fullname = attrs.get("fullname");
-    this.save();
-    logger.info(String.valueOf(Child.count()));
-    return this;
-  }
+  //public static Child getRandom() {
+  //  return new Select().from(Child.class).orderBy("RANDOM()").executeSingle();
+  //}
+
+  //public Child create(Hashtable<String, String> attrs) {
+  //  this.fullname = attrs.get("fullname");
+  //  this.gender = attrs.get("gender");
+  //  //this.avatar = attrs.get("avatar");
+  //  this.save();
+  //  logger.info(String.valueOf(Child.count()));
+  //  return this;
+  //}
 
   public static List<Child> all() {
     return new Select()
       .from(Child.class)
-      .orderBy("Fullname ASC")
+      //.orderBy("id ASC")
       .execute();
   }
 

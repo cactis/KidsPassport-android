@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
-    android:id="@+id/add_child"
+    android:id="@+id/cancel"
     android:showAsAction="withText|ifRoom"
-    android:title="新增"/>
+    android:title="取消"/>
 </menu>

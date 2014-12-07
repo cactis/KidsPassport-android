@@ -55,17 +55,12 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
   private String mParam2;
 
   private OnFragmentInteractionListener mListener;
-
   /**
    * The fragment's ListView/GridView.
    */
-  private AbsListView mListView;
-
-  /**
-   * The Adapter which will be used to populate the ListView/GridView with
-   * Views.
-   */
   private ListAdapter mAdapter;
+  private AbsListView mListView;
+  private List childs;
 
   // TODO: Rename and change types of parameters
   public static ChildsListFragment newInstance(String param1, String param2) {
@@ -97,11 +92,9 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
     //TODO: Change Adapter to display your content
     //mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
     //android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
-    List childs = Child.all();
     //mAdapter = new ArrayAdapter<Child>(getActivity(),android.R.layout.simple_list_item_1, android.R.id.text1, childs);
+    childs = Child.all();
     mAdapter = new ChildAdapter(getActivity(), childs);
-
-    //mAdapter = new ChildAdapter(getActivity(), childCursor);
   }
 
   @Override
@@ -126,6 +119,28 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
   }
 
   @Override
+  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    logger.info(String.format("position: %s", position));
+    logger.info(String.format("id: %s", id));
+    Child child = (Child) mAdapter.getItem(position);
+    logger.info(String.format("child id: %s", child.getId()));
+
+    Fragment fragment = ChildEditFragment.newInstance(child.getId().toString(), null);
+    FragmentTransaction ft = getFragmentManager().beginTransaction();
+    ft.addToBackStack(null);
+    ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
+    ft.replace(R.id.container, fragment);
+    ft.commit();
+
+    if (null != mListener) {
+      logger.info("here!");
+      // Notify the active callbacks interface (the activity, if the
+      // fragment is attached to one) that an item has been selected.
+      mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+    }
+  }
+
+  @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     inflater.inflate(R.menu.childs_list, menu);
     menu.findItem(R.id.add_child).setIcon(
@@ -138,7 +153,7 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
     int id = item.getItemId();
     switch (id) {
       case R.id.add_child:
-        Fragment fragment = ChildEditFragment.newInstance("", "");
+        Fragment fragment = ChildEditFragment.newInstance(null, null);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
         ft.replace(R.id.container, fragment);
@@ -153,10 +168,11 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
   public void onResume() {
     logger.info(String.valueOf("onResume: " + Child.count()));
     ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
-    List childs = Child.all();
     //mAdapter = new ArrayAdapter<Child>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, childs);
+    childs = Child.all();
     mAdapter = new ChildAdapter(getActivity(), childs);
     ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+
     super.onResume();
   }
 
@@ -175,18 +191,6 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
   public void onDetach() {
     super.onDetach();
     mListener = null;
-  }
-
-  @Override
-  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    logger.info(String.format("position: %s", position));
-    logger.info(String.format("id: %s", id));
-    if (null != mListener) {
-      logger.info("here!");
-      // Notify the active callbacks interface (the activity, if the
-      // fragment is attached to one) that an item has been selected.
-      mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
-    }
   }
 
   /**

@@ -8,8 +8,6 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,7 +32,7 @@ public class Child extends Model {
   @Column(name = "Avatar")
   public byte[] avatar;
 
-  public Child(){
+  public Child() {
     super();
   }
 
@@ -51,10 +49,14 @@ public class Child extends Model {
   //  return this;
   //}
 
+  public static Child find(int id){
+    return new Select().from(Child.class).where("id = ?", id).executeSingle();
+  }
+
   public static List<Child> all() {
     return new Select()
       .from(Child.class)
-      //.orderBy("id ASC")
+        .orderBy("fullname ASC")
       .execute();
   }
 

@@ -1,116 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
   <LinearLayout
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <ImageView
+      android:id="@+id/avatar"
       android:layout_width="120dp"
       android:layout_height="match_parent"
-      android:id="@+id/avatar"
-      android:src="@drawable/avatar"
       android:adjustViewBounds="true"
-      android:scaleType="centerCrop"/>
+      android:scaleType="centerCrop"
+      android:src="@drawable/avatar"/>
 
     <LinearLayout
-      android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:orientation="vertical"
       android:padding="10dp">
 
       <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp">
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp">
 
         <TextView
+          android:id="@+id/fullname_label"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceSmall"
           android:text="姓名："
-          android:id="@+id/fullname_label"
           android:textSize="16dp"/>
 
         <TextView
+          android:id="@+id/fullname"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:id="@+id/fullname"
           android:textSize="16dp"/>
       </LinearLayout>
 
       <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp">
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:text="小名："
-          android:id="@+id/nickname_label"
-          android:textSize="16dp"/>
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:id="@+id/nickname"
-          android:textSize="16dp"/>
-      </LinearLayout>
-      <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp">
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:text="性別："
-          android:id="@+id/gender_label"
-          android:textSize="16dp"/>
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:id="@+id/gender"
-          android:textSize="16dp"/>
-      </LinearLayout>
-      <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:paddingTop="3dp">
+
+        <TextView
+          android:id="@+id/nickname_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="小名："
+          android:textSize="16dp"/>
+
+        <TextView
+          android:id="@+id/nickname"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="16dp"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp">
+
+        <TextView
+          android:id="@+id/gender_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="性別："
+          android:textSize="16dp"/>
+
+        <TextView
+          android:id="@+id/gender"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="16dp"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
         >
 
         <TextView
+          android:id="@+id/birthday_label"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceSmall"
           android:text="生日："
-          android:id="@+id/birthday_label"
           android:textSize="16dp"/>
 
         <TextView
+          android:id="@+id/birthday"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:id="@+id/birthday"
           android:textSize="16dp"/>
       </LinearLayout>
     </LinearLayout>

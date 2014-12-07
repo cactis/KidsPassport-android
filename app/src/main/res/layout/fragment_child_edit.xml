@@ -7,93 +7,111 @@
 
 
   <ScrollView
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scrollView"
     >
 
     <LinearLayout
-      android:orientation="vertical"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:layout_gravity="center_horizontal|top"
+      android:orientation="vertical"
       android:padding="10dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/fullname_label"
         android:id="@+id/fullnameLabel"
-        android:layout_gravity="left|top"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:text="@string/fullname_label"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
       <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
         android:id="@+id/fullname"
-        android:hint="@string/fullname_hint"/>
-
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/birthday_label"
-        android:id="@+id/birthday_label"
-        android:layout_marginTop="10dp"/>
-
-      <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
         android:ems="10"
-        android:id="@+id/birthday"
-        android:hint="@string/birthday_hint"/>
+        android:hint="@string/fullname_hint"
+        android:inputType="textPersonName"/>
 
       <TextView
+        android:id="@+id/birthday_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/gender_label"
-        android:id="@+id/gender_label"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:text="@string/birthday_label"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
       <EditText
+        android:id="@+id/birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/birthday_hint"
+        android:inputType="date"/>
+
+      <TextView
+        android:id="@+id/gender_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/gender_label"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+      <EditText
         android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/gender_hint"/>
 
       <TextView
+        android:id="@+id/avatar_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/avatar_label"
-        android:id="@+id/avatar_label"
+        android:layout_marginTop="10dp"
         android:paddingBottom="2dp"
-        android:layout_marginTop="10dp"/>
+        android:text="@string/avatar_label"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
       <ImageView
+        android:id="@+id/avatar"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:id="@+id/avatar"
-        android:cropToPadding="false"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
+        android:cropToPadding="false"
         android:nestedScrollingEnabled="false"
+        android:scaleType="centerCrop"
         android:src="@drawable/avatar"
         />
 
+      <TextView
+        android:id="@+id/nicknameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="10dp"
+        android:text="@string/nickname_label"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+      <EditText
+        android:id="@+id/nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/nickname_hint"
+        android:inputType="textPersonName"/>
+
+
       <Button
+        android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/submit"
-        android:id="@+id/submit"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/navigation_background"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/navigation_background"
+        android:text="@string/submit"
         android:textColor="@android:color/white"/>
 
     </LinearLayout>

@@ -3,29 +3,23 @@ package com.airfont.kidspassport;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activeandroid.query.From;
-import com.activeandroid.query.Select;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 import com.thedeanda.lorem.Lorem;
@@ -34,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Hashtable;
 
 
 /**
@@ -61,9 +54,13 @@ public class ChildEditFragment extends Fragment {
   private OnFragmentInteractionListener mListener;
 
   private EditText fullname;
+  private EditText nickname;
   private EditText gender;
+  private EditText birthday;
   private ImageView avatar;
   private Button submit;
+
+  private Child child;
 
   /**
    * Use this factory method to create a new instance of
@@ -101,14 +98,26 @@ public class ChildEditFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_child_edit, container, false);
 
-
     fullname = (EditText) view.findViewById(R.id.fullname);
+    nickname = (EditText) view.findViewById(R.id.nickname);
+    birthday = (EditText) view.findViewById(R.id.birthday);
     gender = (EditText) view.findViewById(R.id.gender);
     avatar = (ImageView) view.findViewById(R.id.avatar);
     submit = (Button) view.findViewById(R.id.submit);
 
     avatar.setOnClickListener(new ButtonClicked());
     submit.setOnClickListener(new ButtonClicked());
+
+    if (mParam1 == null) {
+      child = new Child();
+    } else {
+      child = Child.find(Integer.valueOf(mParam1));
+      fullname.setText(child.fullname);
+      nickname.setText(child.nickname);
+      birthday.setText(child.birthday);
+      gender.setText(child.gender);
+      avatar.setImageBitmap(BitmapFactory.decodeByteArray(child.avatar, 0, child.avatar.length));
+    }
 
     return view;
   }
@@ -123,7 +132,7 @@ public class ChildEditFragment extends Fragment {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
-    switch (id){
+    switch (id) {
       case R.id.cancel:
         getFragmentManager().popBackStack();
         break;
@@ -186,26 +195,25 @@ public class ChildEditFragment extends Fragment {
           break;
         case R.id.submit:
           logger.info("submit it!");
-          fullname.setText(Lorem.getNameFemale(), TextView.BufferType.EDITABLE);
-          gender.setText("女");
+          if (fullname.getText() == null) {
+            fullname.setText(Lorem.getNameFemale(), TextView.BufferType.EDITABLE);
+            nickname.setText(Lorem.getFirstNameFemale(), TextView.BufferType.EDITABLE);
+            birthday.setText("2005/03/27", TextView.BufferType.EDITABLE);
+            gender.setText("女", TextView.BufferType.EDITABLE);
+          }
 
-          //Hashtable<String, String> attributes = new Hashtable<String, String>();
-          //attributes.put("fullname", fullname.getText().toString());
-          //attributes.put("gender", gender.getText().toString());
-          //attributes.put("avatar", ((BitmapDrawable)avatar.getDrawable()).getBitmap();
-          //Log.v("gender", gender.getText().toString());
-          //logger.info(String.valueOf(attributes));
-          Child child = new Child();
-          //Child result = child.create(attributes);
           child.fullname = fullname.getText().toString();
+          child.nickname = nickname.getText().toString();
           child.gender = gender.getText().toString();
+          child.birthday = birthday.getText().toString();
+
           Bitmap bmp = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
           ByteArrayOutputStream stream = new ByteArrayOutputStream();
           bmp.compress(Bitmap.CompressFormat.JPEG, 75, stream);
           byte[] byteArray = stream.toByteArray();
           child.avatar = byteArray;
           child.save();
-          logger.info(child.fullname);
+
           getFragmentManager().popBackStack();
           break;
       }

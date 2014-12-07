@@ -1,15 +1,14 @@
 package com.airfont.kidspassport;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -50,12 +49,19 @@ public class ChildAdapter extends BaseAdapter {
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
-    convertView = inflater.inflate(R.layout.childs_list_cell, parent, false);
+    if (convertView == null) {
+      convertView = inflater.inflate(R.layout.childs_list_cell, parent, false);
+    }
     Child child = (Child) getItem(position);
     ((TextView) convertView.findViewById(R.id.fullname)).setText(child.fullname);
-    ((TextView) convertView.findViewById(R.id.gender)).setText(child.gender);
     ((TextView) convertView.findViewById(R.id.nickname)).setText(child.nickname);
+    ((TextView) convertView.findViewById(R.id.gender)).setText(child.gender);
     ((TextView) convertView.findViewById(R.id.birthday)).setText(child.birthday);
+    ImageView avatar = (ImageView) convertView.findViewById(R.id.avatar);
+    logger.info(String.format("bitmap'length: %s", child.avatar.length));
+    //if (child.avatar.length > 0) {
+    avatar.setImageBitmap(BitmapFactory.decodeByteArray(child.avatar, 0, child.avatar.length));
+    //}
     return convertView;
   }
 }

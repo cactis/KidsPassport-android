@@ -29,9 +29,8 @@ import com.activeandroid.query.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MainActivity extends Activity
-  implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+  //private OnFragmentInteractionListener onFragmentInteractionListener;
   private static final Logger logger = LoggerFactory.getLogger(MainActivity.class);
 
   /**
@@ -71,46 +70,46 @@ public class MainActivity extends Activity
   }
 
   @Override
-     public void onNavigationDrawerItemSelected(int position) {
-       // update the main content by replacing fragments
-       logger.info("onNavigationDrawerItemSelected");
-       Fragment fragment = new Fragment();
-       //Fragment fragment = PlaceholderFragment.newInstance(position + 1);
-       switch (position) {
-         case 0:
-           fragment = PlaceholderFragment.newInstance(position + 1);
-           break;
-         case 1:
-           mTitle = getString(R.string.title_section1);
-           fragment = ChildsListFragment.newInstance("", "");
-           break;
-         case 2:
-           mTitle = getString(R.string.title_section2);
-           fragment = ParentFragment.newInstance("", "");
-           break;
-         case 3:
-           Uri center_call = Uri.parse("tel:0800049880");
-           Intent center_call_intent = new Intent(Intent.ACTION_DIAL, center_call);
-           startActivity(center_call_intent);
-           return;
-         case 4:
-           Uri police_call = Uri.parse("tel:119");
-           Intent poclic_call_intent = new Intent(Intent.ACTION_DIAL, police_call);
-           startActivity(poclic_call_intent);
-           return;
-         case 5:
-           mTitle = getString(R.string.title_section5);
-           fragment = InfoFragment.newInstance("", "");
-           break;
-         case 6:
-           mTitle = getString(R.string.title_section6);
-           fragment = AboutFragment.newInstance("", "");
-       }
-       FragmentManager fragmentManager = getFragmentManager();
-       fragmentManager.beginTransaction()
-         .replace(R.id.container, fragment)
-         .commit();
-     }
+  public void onNavigationDrawerItemSelected(int position) {
+    // update the main content by replacing fragments
+    logger.info("onNavigationDrawerItemSelected");
+    Fragment fragment = new Fragment();
+    //Fragment fragment = PlaceholderFragment.newInstance(position + 1);
+    switch (position) {
+      case 0:
+        fragment = PlaceholderFragment.newInstance(position + 1);
+        break;
+      case 1:
+        mTitle = getString(R.string.title_section1);
+        fragment = ChildsListFragment.newInstance("", "");
+        break;
+      case 2:
+        mTitle = getString(R.string.title_section2);
+        fragment = ParentFragment.newInstance("", "");
+        break;
+      case 3:
+        Uri center_call = Uri.parse("tel:0800049880");
+        Intent center_call_intent = new Intent(Intent.ACTION_DIAL, center_call);
+        startActivity(center_call_intent);
+        return;
+      case 4:
+        Uri police_call = Uri.parse("tel:119");
+        Intent poclic_call_intent = new Intent(Intent.ACTION_DIAL, police_call);
+        startActivity(poclic_call_intent);
+        return;
+      case 5:
+        mTitle = getString(R.string.title_section5);
+        fragment = InfoFragment.newInstance("", "");
+        break;
+      case 6:
+        mTitle = getString(R.string.title_section6);
+        fragment = AboutFragment.newInstance("", "");
+    }
+    FragmentManager fragmentManager = getFragmentManager();
+    fragmentManager.beginTransaction()
+      .replace(R.id.container, fragment)
+      .commit();
+  }
 
   public void onSectionAttached(int number) {
     logger.info("number", number);

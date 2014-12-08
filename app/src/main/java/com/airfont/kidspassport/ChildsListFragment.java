@@ -136,7 +136,7 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
       logger.info("here!");
       // Notify the active callbacks interface (the activity, if the
       // fragment is attached to one) that an item has been selected.
-      mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+      //mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
     }
   }
 
@@ -166,9 +166,10 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
 
   @Override
   public void onResume() {
-    logger.info(String.valueOf("onResume: " + Child.count()));
+    logger.info(String.format("onResume: count of childs is %s", Child.count()));
     ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
     //mAdapter = new ArrayAdapter<Child>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, childs);
+
     childs = Child.all();
     mAdapter = new ChildAdapter(getActivity(), childs);
     ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
@@ -179,12 +180,12 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
   @Override
   public void onAttach(Activity activity) {
     super.onAttach(activity);
-    //    try {
-    //      mListener = (OnFragmentInteractionListener) activity;
-    //    } catch (ClassCastException e) {
-    //      throw new ClassCastException(activity.toString()
-    //                                     + " must implement OnFragmentInteractionListener");
-    //    }
+    //try {
+    //  mListener = (OnFragmentInteractionListener) activity;
+    //} catch (ClassCastException e) {
+    //  throw new ClassCastException(activity.toString()
+    //    + " must implement OnFragmentInteractionListener");
+    //}
   }
 
   @Override
@@ -218,7 +219,8 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
    */
   public interface OnFragmentInteractionListener {
     // TODO: Update argument type and name
-    public void onFragmentInteraction(String id);
+    //public void onFragmentInteraction(String id);
+    public void onFragmentInteraction(Uri uri);
   }
 
 }

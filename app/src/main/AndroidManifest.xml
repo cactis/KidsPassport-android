@@ -3,6 +3,11 @@
   package="com.airfont.kidspassport"
   xmlns:android="http://schemas.android.com/apk/res/android">
 
+  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+  <uses-feature android:name="android.hardware.camera"></uses-feature>
+  <uses-feature android:name="android.hardware.camera.autofocus"></uses-feature>
+
   <application
     android:name="com.activeandroid.app.Application"
     android:allowBackup="true"
@@ -12,6 +17,7 @@
 
     <meta-data android:name="AA_DB_NAME" android:value="KidsPassport.db" />
     <meta-data android:name="AA_DB_VERSION" android:value="1" />
+
 
     <activity
       android:name="com.airfont.kidspassport.MainActivity"

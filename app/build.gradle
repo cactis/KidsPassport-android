@@ -26,7 +26,25 @@ dependencies {
     compile 'com.joanzapata.android:android-iconify:1.0.8'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.thedeanda:lorem:1.2'
+
+    // glide
+    //compile 'com.github.bumptech.glide:glide:3.4.+'
+    //compile 'com.android.support:support-v4:19.1.0'
 }
+
+allprojects {
+  repositories {
+    maven {
+      url 'https://github.com/suckgamony/RapidDecoder/raw/master/repository'
+    }
+  }
+}
+dependencies {
+  compile 'rapid.decoder:library:0.2.8'
+  compile 'rapid.decoder:jpeg-decoder:0.2.8'
+  compile 'rapid.decoder:png-decoder:0.2.8'
+}
+
 
 // for groovy
 //buildscript {

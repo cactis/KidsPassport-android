@@ -1,6 +1,7 @@
 package com.airfont.kidspassport;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import rapid.decoder.BitmapDecoder;
+
 /**
  * Created by ctslin on 12/7/14.
  */
@@ -23,7 +26,7 @@ public class ChildAdapter extends BaseAdapter {
   //private Context context;
   private LayoutInflater inflater;
   private List list = null;
-  private Object fullname;
+  //private Object fullname;
 
   public ChildAdapter(Context context, List<List> list) {
     //this.context = context;
@@ -49,19 +52,26 @@ public class ChildAdapter extends BaseAdapter {
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
+
     if (convertView == null) {
       convertView = inflater.inflate(R.layout.childs_list_cell, parent, false);
+      //avatar = (ImageView) inflater.inflate(R.layout.av)
     }
     Child child = (Child) getItem(position);
+    //logger.info(String.format("bitmap'length: %s", child.avatar.length));
     ((TextView) convertView.findViewById(R.id.fullname)).setText(child.fullname);
     ((TextView) convertView.findViewById(R.id.nickname)).setText(child.nickname);
     ((TextView) convertView.findViewById(R.id.gender)).setText(child.gender);
     ((TextView) convertView.findViewById(R.id.birthday)).setText(child.birthday);
+
+    //ImageView avatar = (ImageView) convertView.findViewById(R.id.avatar);
+    //Bitmap bmp = BitmapFactory.decodeByteArray(child.avatar, 0, child.avatar.length);
+
+    //Bitmap bmp = BitmapDecoder.from(child.avatar).decode();
+    Bitmap bmp = child.getAvatar();
     ImageView avatar = (ImageView) convertView.findViewById(R.id.avatar);
-    logger.info(String.format("bitmap'length: %s", child.avatar.length));
-    //if (child.avatar.length > 0) {
-    avatar.setImageBitmap(BitmapFactory.decodeByteArray(child.avatar, 0, child.avatar.length));
-    //}
+    avatar.setImageBitmap(bmp);
+
     return convertView;
   }
 }

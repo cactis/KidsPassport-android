@@ -1,13 +1,10 @@
-package com.airfont.kidspassport;
+package com.airfont.kidspassport.fragments;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -25,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airfont.kidspassport.R;
+import com.airfont.kidspassport.models.Child;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 import com.thedeanda.lorem.Lorem;
@@ -32,7 +31,6 @@ import com.thedeanda.lorem.Lorem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 //import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -129,8 +127,12 @@ public class ChildEditFragment extends Fragment {
 
     if (mParam1 == null) {
       child = new Child();
+      //java.util.Date now = new java.util.Date();
+      child.created_at = new java.util.Date();
     } else {
       child = Child.find(Integer.valueOf(mParam1));
+      logger.info(String.format("created_at: %s", child.created_at));
+      logger.info(String.format("updated_at: %s", child.updated_at));
       fullname.setText(child.fullname);
       nickname.setText(child.nickname);
       birthday.setText(child.birthday);
@@ -247,6 +249,8 @@ public class ChildEditFragment extends Fragment {
           child.nickname = nickname.getText().toString();
           child.gender = gender.getText().toString();
           child.birthday = birthday.getText().toString();
+          //java.util.Date now = new java.util.Date();
+          child.updated_at = new java.util.Date();
 
           //Bitmap bmp = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
           //ByteArrayOutputStream stream = new ByteArrayOutputStream();

@@ -1,4 +1,4 @@
-package com.airfont.kidspassport;
+package com.airfont.kidspassport.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 
+import com.airfont.kidspassport.R;
 import com.airfont.kidspassport.dummy.DummyContent;
 
 /**

@@ -1,12 +1,8 @@
-package com.airfont.kidspassport;
+package com.airfont.kidspassport.models;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.ImageView;
 
 import com.activeandroid.Cache;
 import com.activeandroid.Model;
@@ -17,8 +13,6 @@ import com.activeandroid.query.Select;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +39,10 @@ public class Child extends Model {
   //public byte[] avatar;
   @Column(name = "Filename")
   public String filename;
+  @Column(name = "Created_at")
+  public Date created_at;
+  @Column(name = "Updated_at")
+  public Date updated_at;
 
   public Child() {
     super();
@@ -68,7 +66,7 @@ public class Child extends Model {
   public static List<Child> all() {
     return new Select()
       .from(Child.class)
-      .orderBy("fullname ASC")
+      .orderBy("updated_at desc")
       .execute();
   }
 
@@ -82,8 +80,6 @@ public class Child extends Model {
     c.close();
     return count;
   }
-
-
 
   private Bitmap loadImageFromStorage(String filename) {
     if (filename != null) {

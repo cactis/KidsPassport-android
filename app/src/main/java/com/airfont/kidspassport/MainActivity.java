@@ -5,26 +5,25 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import android.content.Intent;
 
 import android.net.Uri;
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.query.Select;
+import com.airfont.kidspassport.fragments.AboutFragment;
+import com.airfont.kidspassport.fragments.ChildEditFragment;
+import com.airfont.kidspassport.fragments.ChildsListFragment;
+import com.airfont.kidspassport.fragments.InfoFragment;
+import com.airfont.kidspassport.fragments.ParentFragment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +59,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
     if (isDevelopment()) {
       if (true) {
-        onNavigationDrawerItemSelected(1);
+        onNavigationDrawerItemSelected(0);
       } else {
         Fragment fragment = ChildEditFragment.newInstance("", "");
         FragmentManager fragmentManager = getFragmentManager();
@@ -71,10 +70,9 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
   @Override
   public void onNavigationDrawerItemSelected(int position) {
-    // update the main content by replacing fragments
-    logger.info("onNavigationDrawerItemSelected");
+
     Fragment fragment = new Fragment();
-    //Fragment fragment = PlaceholderFragment.newInstance(position + 1);
+
     switch (position) {
       case 0:
         fragment = PlaceholderFragment.newInstance(position + 1);
@@ -105,10 +103,10 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         mTitle = getString(R.string.title_section6);
         fragment = AboutFragment.newInstance("", "");
     }
+
     FragmentManager fragmentManager = getFragmentManager();
-    fragmentManager.beginTransaction()
-      .replace(R.id.container, fragment)
-      .commit();
+    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+
   }
 
   public void onSectionAttached(int number) {
@@ -121,7 +119,6 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
     actionBar.setDisplayShowTitleEnabled(true);
     actionBar.setTitle(mTitle);
   }
-
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {

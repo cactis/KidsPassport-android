@@ -1,7 +1,6 @@
-package com.airfont.kidspassport;
+package com.airfont.kidspassport.fragments;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,14 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.ImageView;
 
-import com.airfont.kidspassport.dummy.DummyContent;
+import com.airfont.kidspassport.MainActivity;
+import com.airfont.kidspassport.R;
+import com.airfont.kidspassport.adapters.ChildAdapter;
 
+import com.airfont.kidspassport.models.Child;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 
@@ -30,7 +30,6 @@ import com.joanzapata.android.iconify.Iconify;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +44,7 @@ import java.util.List;
 public class ChildsListFragment extends Fragment implements AbsListView.OnItemClickListener {
 
   private static final Logger logger = LoggerFactory.getLogger(MainActivity.class);
+
   // TODO: Rename parameter arguments, choose names that match
   // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
   private static final String ARG_PARAM1 = "param1";
@@ -81,6 +81,7 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    logger.info("onCreate");
     super.onCreate(savedInstanceState);
     setHasOptionsMenu(true);
 
@@ -99,10 +100,13 @@ public class ChildsListFragment extends Fragment implements AbsListView.OnItemCl
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    logger.info("onCleateView");
     View view = inflater.inflate(R.layout.fragment_child_list, container, false);
 
     // Set the adapter
-    mListView = (AbsListView) view.findViewById(android.R.id.list);
+    //mListView = (AbsListView) view.findViewById(android.R.id.list);
+    mListView = (AbsListView) view.findViewById(R.id.childListView);
+
     ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
     //Set OnItemClickListener so we can be notified on item clicks

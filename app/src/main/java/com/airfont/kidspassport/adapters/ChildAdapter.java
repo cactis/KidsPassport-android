@@ -1,8 +1,7 @@
-package com.airfont.kidspassport;
+package com.airfont.kidspassport.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airfont.kidspassport.models.Child;
+import com.airfont.kidspassport.R;
+
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import rapid.decoder.BitmapDecoder;
 
 /**
  * Created by ctslin on 12/7/14.
